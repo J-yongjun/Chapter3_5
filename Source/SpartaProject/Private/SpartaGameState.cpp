@@ -62,6 +62,10 @@ void ASpartaGameState::AddScore(int32 Amount)
 
 void ASpartaGameState::StartLevel()
 {
+	GetWorldTimerManager().ClearTimer(LevelTimerHandle);
+	GetWorldTimerManager().ClearTimer(HUDUpdateTimerHandle);
+	GetWorldTimerManager().ClearTimer(WaveTransitionTimerHandle);
+
 	if (APlayerController* PlayerController = GetWorld()->GetFirstPlayerController())
 	{
 		if (ASpartaPlayerController* SpartaPlayerController = Cast<ASpartaPlayerController>(PlayerController))
