@@ -144,6 +144,8 @@ void ASpartaGameState::OnCoinCollected()
 void ASpartaGameState::EndLevel()
 {
 	GetWorldTimerManager().ClearTimer(LevelTimerHandle);
+	GetWorldTimerManager().ClearTimer(HUDUpdateTimerHandle);
+	GetWorldTimerManager().ClearTimer(WaveTransitionTimerHandle);
 
 	if (UGameInstance* GameInstance = GetGameInstance())
 	{
