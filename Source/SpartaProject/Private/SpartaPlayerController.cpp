@@ -6,6 +6,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "Components/TextBlock.h"
 
 ASpartaPlayerController::ASpartaPlayerController()
@@ -117,6 +118,12 @@ void ASpartaPlayerController::ShowMainMenu(bool bIsRestart)
 			{
 				MainMenuWidgetInstance->ProcessEvent(PlayStartButtonAnimFunc, nullptr);
 			}
+
+			UFunction* PlayQuitButtonAnimFunc = MainMenuWidgetInstance->FindFunction(FName("PlayQuitButtonAnim"));
+			if (PlayQuitButtonAnimFunc)
+			{
+				MainMenuWidgetInstance->ProcessEvent(PlayQuitButtonAnimFunc, nullptr);
+			}
 		}
 	}
 }
@@ -170,3 +177,12 @@ void ASpartaPlayerController::StartGame()
 	SetPause(false);
 }
 
+void ASpartaPlayerController::QuitGame()
+{
+	UKismetSystemLibrary::QuitGame(
+		GetWorld(),
+		this,
+		EQuitPreference::Quit,
+		false
+	);
+}
